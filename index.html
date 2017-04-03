@@ -14,17 +14,17 @@
 <meta http-equiv="cleartype" content="on"><!--Erlaubt Aktivierung von "ClearType" in Mobilen IE for smoothing fonts-->
 
 
-  <title>MappingTime</title>
+  <title>(develop)MappingTime</title>
 
 
 
   <!--jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <!--/* Bootstrap */-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <!-- Leaflet- -->
-  <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/> 
+  <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
   <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
   -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
@@ -49,7 +49,7 @@
             font-style: italic;
             color: #AAA;
           }
-     
+
       .leaflet-left{
                  width:50%;
                   }
@@ -62,16 +62,16 @@
  </style>
 </head>
 <body>
- 
-  <!--************************************************ --> 
-  <!--***************Sidebar*************************** --> 
-  <!--************************************************ --> 
+
+  <!--************************************************ -->
+  <!--***************Sidebar*************************** -->
+  <!--************************************************ -->
  <div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-                
+
             </ul>
 
             <ul role="tablist">
@@ -87,9 +87,9 @@
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
 
-            
 
-                <p class="lorem">MappingTime was builded with 
+
+                <p class="lorem">MappingTime was builded with
                   <a href ="http://leafletjs.com/">Leaflet,</a>
                   <a href ="https://github.com/skeate/Leaflet.timeline">Leaflet.Timeline,</a>
                   <a href ="https://jquery.com/"> jQuery,</a>
@@ -124,13 +124,13 @@
     attribution: true,
    layers:[ownlayer],
   });
-       
+
 
   var SW = map.getBounds().getSouthWest();
-  var NE = map.getBounds().getNorthEast(); 
+  var NE = map.getBounds().getNorthEast();
 
   var bounds = new L.LatLngBounds (SW, NE);
-   
+
   map.setMaxBounds(bounds); //ruckle Bug?
 
   var sidebar = L.control.sidebar('sidebar',{
@@ -138,13 +138,13 @@
   });
   map.addControl(sidebar);
 
-  
 
 
 
-  
+
+
    // Konstruktorfunktion Point, LineString, Polygon
-   
+
       //new Point
       function Point(name_point, start_point, end_point, type_point, x_point, y_point){
         var that = this;
@@ -155,7 +155,7 @@
         that.type_point = type_point;
         that.x_point = x_point;
         that.y_point = y_point;
-          
+
         //that.point_feature = function(){
         return '{"type":'+'"Feature","properties":{"name":"'+name_point+'",'+'"start":'+'"'+start_point+'"'+','+'"end":'+'"'+end_point+'"'+"},"+'"geometry"'+':{"type":"'+type_point +'",'+'"coordinates":['+x_point+","+y_point+']}},'
        //}
@@ -174,7 +174,7 @@
 
 
        return '{"type":'+'"Feature","properties":{"name":"'+name_line+'",'+'"start":'+'"'+start_line+'"'+","+'"end":'+'"'+end_line+'"'+"},"+'"geometry"'+':{"type":"'+type_line +'",'+'"coordinates":['+theLineCoords+']}},'
-        
+
       };
 
       //new Polygon
@@ -191,8 +191,8 @@
         return '{"type":'+'"Feature","properties":{"name":"'+name_polygon+'",'+'"start":'+'"'+start_polygon+'"'+","+'"end":'+'"'+end_polygon+'"'+"},"+'"geometry"'+':{"type":"'+type_polygon +'",'+'"coordinates":'+coord_poly_string+'}},'
 
       }; /// ENDE Klasse Polygon
-  //ENDE (Funktionen) Klassen definition 
-  
+  //ENDE (Funktionen) Klassen definition
+
 
 
 
@@ -207,18 +207,18 @@
     for(var i = 0; i <data.features.length; i++){
       count++;
 
-     
+
       //Polygon
       if(data.features[i].geometry.type ==="Polygon"){
 
         var name_polygon = data.features[i].properties.TITLE;
          //alert(name_polygon);
         var type_polygon = data.features[i].geometry.type;
-   
+
 
       //Time/Date extrahieren
      var start_polygon = data.features[i].properties.SYEAR+"-"+data.features[i].properties.SMONTH+"-"+data.features[i].properties.SDAY
-     
+
       var end_polygon = data.features[i].properties.EYEAR +"-"+data.features[i].properties.EMONTH+"-"+data.features[i].properties.EDAY
 
       start_polygon = new Date(start_polygon);
@@ -229,14 +229,14 @@
       //console.log(coord_poly);
       coord_poly = coord_poly.toString();
       coord_poly = coord_poly.split(",");
-    
+
 
 
        var x_poly_coord_A =[];
        var y_poly_coord_A = [];
        var coord_poly_Array = []; //="";
        var coord_poly_string = "";
-       
+
         //Alle Y-Koordinaten
         for (m = 1; m<coord_poly.length; m+=2){
           y_poly_coord_A.push(coord_poly[m]);
@@ -254,8 +254,8 @@
           coord_poly_pair.push([x_poly_coord_A[j],[y_poly_coord_A[j]]])
         }
         coord_poly_pair.toString();
-  
-  
+
+
       var  pair_string = JSON.stringify(coord_poly_pair);
       pair_string = pair_string.replace(/"/g,"");
       pair_string = pair_string.replace(/(\,\[)/g,",");
@@ -266,8 +266,8 @@
       $.each(x_poly_coord_A,function(i, item){
         coord_poly_pair = x_poly_coord_A[i]+", "+ y_poly_coord_A[i];
         coord_poly_pair = coord_poly_pair.toString();
-      }); 
-     
+      });
+
     coord_poly_string = "["+pair_string+"]";
    // alert(coord_poly_string);
 
@@ -286,20 +286,20 @@
 
 
       }//if-Polygon
-///////////////////////////////      
+///////////////////////////////
 
 
 
- 
+
 
 
 
       //Point
       if(data.features[i].geometry.type ==="Point"){
 
-        name_point = data.features[i].properties.TITLE; 
+        name_point = data.features[i].properties.TITLE;
         type_point = data.features[i].geometry.type;
-           //console.log(name_point); 
+           //console.log(name_point);
         //Koordinaten extrahieren
         var coord_points = data.features[i].geometry.coordinates;
         point_item = i+";"+ data.features[i].geometry.type +";"+coord_points;
@@ -308,16 +308,16 @@
         var itemsxy_point = split_point_item_to_string.split(",");
         x_point = itemsxy_point[2];
         y_point = itemsxy_point[3];
-              
+
         //Time/Date extrahieren
         var start = data.features[i].properties.SYEAR+"-"+data.features[i].properties.SMONTH+"-"+data.features[i].properties.SDAY
-              
+
         var end = data.features[i].properties.EYEAR +"-"+data.features[i].properties.EMONTH+"-"+data.features[i].properties.EDAY
-              
+
         start_point = new Date(start);
         end_point = new Date(end);
 
-              
+
         //extrahierete Daten an Klasse übergeben
         var mypoint =  Point(name_point, start_point, end_point, type_point, x_point, y_point);
         //console.log(mypoint); /
@@ -331,14 +331,14 @@
 
           //alert (count); //18
 
-        name_line = data.features[i].properties.TITLE; 
+        name_line = data.features[i].properties.TITLE;
         type_line = data.features[i].geometry.type;
         console.log(name_line);
       //Koordinaten extrahieren von einem LineString
         var coord_line = data.features[i].geometry.coordinates;
         coord_line = coord_line.toString();
         coord_line = coord_line.split(",")
-      
+
         var x_coord_A =[];
         var y_coord_A = [];
         var coord_line_point = "";
@@ -349,13 +349,13 @@
           //console.log("y = "+i +"--"+coord_line[i]); //i =-1 66 //all y
           y_coord_A.push(coord_line[k]+"]");
         };
-        
+
         //Alle X-Koordinaten
         for (j = 0; j<coord_line.length; j+=2){
           //console.log("x= "+i +"--"+coord_line[i]); //i = 0-66 //all x
             x_coord_A.push("["+coord_line[j]);
         };
-       
+
       //Array x u. y zu Koordinatenpaare ordnen
       $.each(x_coord_A,function(i, item){
         //console.log(x_coord_A[i]+","+ y_coord_A[i]);
@@ -370,14 +370,14 @@
     //Time/Date extrahieren
     var start_line = data.features[i].properties.SYEAR+"-"+data.features[i].properties.SMONTH+"-"+data.features[i].properties.SDAY
     var end_line = data.features[i].properties.EYEAR +"-"+data.features[i].properties.EMONTH+"-"+data.features[i].properties.EDAY
-              
+
     start_line = new Date(start_line);
     end_line = new Date(end_line);
 
     //extrahierete Daten an Klasse (Line) übergeben
     var myline =  Line(name_line, start_line, end_line, type_line, coord_string);
    // alert(myline);
-    
+
     line_Array.push(myline);
 
 
@@ -397,15 +397,15 @@
 
   for (var k = 0; k<polygon_Array.length; k++){
     polygonInOneString +=polygon_Array[k].toString();
-  }   
-  
+  }
+
   polygonInOneString = polygonInOneString.replace(/,\s*$/, ""); //letztes Komma entfernen
 
 
   for (var k = 0; k <point_Array.length; k++) {
     featuresInOneString +=point_Array[k].toString();
   }
-  
+
   featuresInOneString = featuresInOneString.replace(/,\s*$/, ""); //letztes Komma entfernen
 
 
@@ -424,7 +424,7 @@
 
    example_data = example_data.toString();
     // Transform to a JSON-Object
-  var example_data_for_map = JSON.parse(example_data); 
+  var example_data_for_map = JSON.parse(example_data);
   //console.log(obj);
   //var mypointsLayer =  L.geoJson(obj);
      var slider = L.timelineSliderControl({
@@ -436,7 +436,7 @@
       return moment(date).format("YYYY-MM-DD");
 
     }
-    
+
   });
   map.addControl(slider);
 
@@ -452,8 +452,8 @@
   }//End function dataForTimeline
 
 
- $.getJSON("map.geojson", function(data) { 
-    //addDataToMap(data, map); 
+ $.getJSON("map.geojson", function(data) {
+    //addDataToMap(data, map);
     dataForTimeline(data, map);  //delete maybe map
 });
 
