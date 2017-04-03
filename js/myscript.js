@@ -342,7 +342,7 @@ slider.addTimelines(timeline);
 }//End function dataForTimeline
 
 
-$.getJSON("map.geojson", function(data) {
+$.getJSON("./map.geojson", function(data) {
   //addDataToMap(data, map);
   dataForTimeline(data, map);  //delete maybe map
 });
