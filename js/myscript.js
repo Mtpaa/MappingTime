@@ -1,6 +1,6 @@
-//-- ************************* -->
-//-- ******Leaflet_Map******** -->
-//-- ************************* -->
+////////////////////////////////////
+//         Leaflet_Map           //
+//////////////////////////////////
 
 // Create Layer of a slippy map with some options
 var ownlayer = L.tileLayer('http://{s}.tiles.mapbox.com/v3/github.map-xgq2svrz/{z}/{x}/{y}.png',{
@@ -28,12 +28,9 @@ var sidebar = L.control.sidebar('sidebar',{
 });
 map.addControl(sidebar);
 
-
-
-
-
-
- // Konstruktorfunktion Point, LineString, Polygon
+///////////////////////////////////////////////////////
+// Construktorfunction Point, LineString, Polygon   //
+//////////////////////////////////////////////////////
 
     //new Point
     function Point(name_point, start_point, end_point, type_point, x_point, y_point){
@@ -51,7 +48,7 @@ map.addControl(sidebar);
      //}
    };
 
-         //new LineString
+    //new LineString
     function Line(name_line, start_line, end_line, type_line, theLineCoords){
      var that = this;
      that.name_line = name_line;
@@ -61,11 +58,8 @@ map.addControl(sidebar);
      that.type_line = type_line;
      that.theLineCoords = theLineCoords;
 
-
-
      return '{"type":'+'"Feature","properties":{"name":"'+name_line+'",'+'"start":'+'"'+start_line+'"'+","+'"end":'+'"'+end_line+'"'+"},"+'"geometry"'+':{"type":"'+type_line +'",'+'"coordinates":['+theLineCoords+']}},'
-
-    };
+   };
 
     //new Polygon
     function Polygon(name_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) {
@@ -77,36 +71,37 @@ map.addControl(sidebar);
       that.type_polygon = type_polygon;
       that.coord_poly_string = coord_poly_string;
 
-
       return '{"type":'+'"Feature","properties":{"name":"'+name_polygon+'",'+'"start":'+'"'+start_polygon+'"'+","+'"end":'+'"'+end_polygon+'"'+"},"+'"geometry"'+':{"type":"'+type_polygon +'",'+'"coordinates":'+coord_poly_string+'}},'
-
-    }; /// ENDE Klasse Polygon
-//ENDE (Funktionen) Klassen definition
+    }; /// END Class Polygon
+//end Class-Defintions
 
 
 
 
 function dataForTimeline(data, map){
-  console.log(data);
+  //console.log(data);
   var point_Array = [];
   var line_Array = [];
   var polygon_Array = [];
   var count = 0
 
-  //Loop geojson-auslesen
+          ///////////////////////////////
+          //  read out GeoJSON-Loop   //
+          /////////////////////////////
+
   for(var i = 0; i <data.features.length; i++){
-    count++;
+    //count++;
 
 
-    //Polygon
+    //Loop here if it is Polygon
     if(data.features[i].geometry.type ==="Polygon"){
 
       var name_polygon = data.features[i].properties.TITLE;
-       //alert(name_polygon);
+
       var type_polygon = data.features[i].geometry.type;
 
 
-    //Time/Date extrahieren
+    //extract Time(Date)
    var start_polygon = data.features[i].properties.SYEAR+"-"+data.features[i].properties.SMONTH+"-"+data.features[i].properties.SDAY
 
     var end_polygon = data.features[i].properties.EYEAR +"-"+data.features[i].properties.EMONTH+"-"+data.features[i].properties.EDAY
@@ -114,9 +109,9 @@ function dataForTimeline(data, map){
     start_polygon = new Date(start_polygon);
     end_polygon = new Date (end_polygon);
 
-   //Koordinaten
+   //Coordinates
     var coord_poly = data.features[i].geometry.coordinates;
-    //console.log(coord_poly);
+
     coord_poly = coord_poly.toString();
     coord_poly = coord_poly.split(",");
 
@@ -124,21 +119,21 @@ function dataForTimeline(data, map){
 
      var x_poly_coord_A =[];
      var y_poly_coord_A = [];
-     var coord_poly_Array = []; //="";
+     var coord_poly_Array = [];
      var coord_poly_string = "";
 
-      //Alle Y-Koordinaten
+      //Array full of Y-Koords
       for (m = 1; m<coord_poly.length; m+=2){
         y_poly_coord_A.push(coord_poly[m]);
       };
-  //Array full of y_koordibnaten
-  //Alle X-Koordinaten
+
+      //Array full of X-Coords
       for (n = 0; n<coord_poly.length; n+=2){
         x_poly_coord_A.push(coord_poly[n]);
       };
 
 
-    var coord_poly_pair = [];  //="";
+    var coord_poly_pair = [];
 
       for (var j=0; j<x_poly_coord_A.length; j++){
         coord_poly_pair.push([x_poly_coord_A[j],[y_poly_coord_A[j]]])
@@ -152,45 +147,30 @@ function dataForTimeline(data, map){
     pair_string = pair_string.replace(/\]\]\,/g,"], [");
     pair_string = pair_string.replace(/\]\]\]/g,"]]");
 
-    //Array x u. y zu Koordinatenpaare ordnen
+    //array x & y  put in order to Coordpairs
     $.each(x_poly_coord_A,function(i, item){
       coord_poly_pair = x_poly_coord_A[i]+", "+ y_poly_coord_A[i];
       coord_poly_pair = coord_poly_pair.toString();
     });
 
   coord_poly_string = "["+pair_string+"]";
- // alert(coord_poly_string);
+
 
   var myPolygon = Polygon(name_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string)
-    //alert(myPolygon);
- polygon_Array.push(myPolygon);
 
-  //alert(polygon_Array);
-
+    //push class Point to array
+    polygon_Array.push(myPolygon);
 
 
-
-
-
-
-
-
-    }//if-Polygon
+}//if-end-Polygon
 ///////////////////////////////
-
-
-
-
-
-
-
-    //Point
+    // Loop  is here, if it is a Point
     if(data.features[i].geometry.type ==="Point"){
 
       name_point = data.features[i].properties.TITLE;
       type_point = data.features[i].geometry.type;
-         //console.log(name_point);
-      //Koordinaten extrahieren
+
+      //extract Coordinates
       var coord_points = data.features[i].geometry.coordinates;
       point_item = i+";"+ data.features[i].geometry.type +";"+coord_points;
       var split_point_item = point_item.split(";");
@@ -199,7 +179,7 @@ function dataForTimeline(data, map){
       x_point = itemsxy_point[2];
       y_point = itemsxy_point[3];
 
-      //Time/Date extrahieren
+      //extract Time(Date)
       var start = data.features[i].properties.SYEAR+"-"+data.features[i].properties.SMONTH+"-"+data.features[i].properties.SDAY
 
       var end = data.features[i].properties.EYEAR +"-"+data.features[i].properties.EMONTH+"-"+data.features[i].properties.EDAY
@@ -208,23 +188,22 @@ function dataForTimeline(data, map){
       end_point = new Date(end);
 
 
-      //extrahierete Daten an Klasse übergeben
+      //extracted data pass over to Class
       var mypoint =  Point(name_point, start_point, end_point, type_point, x_point, y_point);
-      //console.log(mypoint); /
-        //mypoint_string = JSON.stringify(mypoint);//importent step for an other difficult way(replace)
+        //class feature push to Array(Point)
         point_Array.push(mypoint);
 
-    }//if-Point
+    }//if-end-Point
 //////////////////////////
-   //LineString
+    //Loop her if it is a LineString
     if(data.features[i].geometry.type ==="LineString"){
 
-        //alert (count); //18
+
 
       name_line = data.features[i].properties.TITLE;
       type_line = data.features[i].geometry.type;
-      console.log(name_line);
-    //Koordinaten extrahieren von einem LineString
+      //console.log(name_line);
+      //extract Coordinates of LineString
       var coord_line = data.features[i].geometry.coordinates;
       coord_line = coord_line.toString();
       coord_line = coord_line.split(",")
@@ -234,92 +213,88 @@ function dataForTimeline(data, map){
       var coord_line_point = "";
       var coord_string = "";
 
-      //Alle Y-Koordinaten
+      //all Y-Coordinates
       for (k = 1; k<coord_line.length; k+=2){
-        //console.log("y = "+i +"--"+coord_line[i]); //i =-1 66 //all y
+
         y_coord_A.push(coord_line[k]+"]");
       };
 
-      //Alle X-Koordinaten
+      //all X-Coordinates
       for (j = 0; j<coord_line.length; j+=2){
-        //console.log("x= "+i +"--"+coord_line[i]); //i = 0-66 //all x
+
           x_coord_A.push("["+coord_line[j]);
       };
 
-    //Array x u. y zu Koordinatenpaare ordnen
+    //array x & y put in order
     $.each(x_coord_A,function(i, item){
-      //console.log(x_coord_A[i]+","+ y_coord_A[i]);
+
       coord_line_point = x_coord_A[i]+", "+ y_coord_A[i]
-      //console.log(coord_line_point);
+
       coord_string += coord_line_point+", ".toString();
     });
 
     coord_string = coord_string.substr(0,coord_string.length-2);
     coord_string = coord_string;
 
-  //Time/Date extrahieren
+  //Time(Date) extract
   var start_line = data.features[i].properties.SYEAR+"-"+data.features[i].properties.SMONTH+"-"+data.features[i].properties.SDAY
   var end_line = data.features[i].properties.EYEAR +"-"+data.features[i].properties.EMONTH+"-"+data.features[i].properties.EDAY
 
   start_line = new Date(start_line);
   end_line = new Date(end_line);
 
-  //extrahierete Daten an Klasse (Line) übergeben
+  //extracted data hand over to class Line
   var myline =  Line(name_line, start_line, end_line, type_line, coord_string);
- // alert(myline);
 
+  //class feature push to Array(Line)
   line_Array.push(myline);
 
 
     }//if-LineString
-   // alert(line_Array.length);
+
 ///////////////////////////////////
 
 
-  }//loop Ende
-  //console.log(point_Array);
+  }//loop-end
+
   console.log(line_Array);
-  //console.log("Länge = "+point_Array.length); //21
-  //console.log(point_Array[0]);
+
     var polygonInOneString = "";
-    var featuresInOneString =""; //muss vielleicht globale Variable werden
+    var featuresInOneString ="";
     var lineInString = "";
 
 for (var k = 0; k<polygon_Array.length; k++){
   polygonInOneString +=polygon_Array[k].toString();
 }
 
-polygonInOneString = polygonInOneString.replace(/,\s*$/, ""); //letztes Komma entfernen
-
+polygonInOneString = polygonInOneString.replace(/,\s*$/, ""); //delete last ,
 
 for (var k = 0; k <point_Array.length; k++) {
   featuresInOneString +=point_Array[k].toString();
 }
 
-featuresInOneString = featuresInOneString.replace(/,\s*$/, ""); //letztes Komma entfernen
+featuresInOneString = featuresInOneString.replace(/,\s*$/, ""); //delete last ,
 
 
 for(var k = 0; k <line_Array.length; k++){
   lineInString +=line_Array[k].toString();
 }
 lineInString = lineInString.replace(/,\s*$/, "");
-//alert(lineInString);
+
 
 var example_data = '{"type"'+':'+'"FeatureCollection","features"'+':'+'['+featuresInOneString+","+lineInString+","+polygonInOneString+']}';
-//alert(example_data);
-//var polygon_example = '{"type"'+':'+'"FeatureCollection","features"'+':'+'['+polygonFeatures_2_String+linefeaturesInOneString+featuresInOneString+']}';
+    example_data = example_data.toString();
 
-//hier muss später Polygon und LineString hinzugefügt werden
-// document.write(example_data);
-
- example_data = example_data.toString();
-  // Transform to a JSON-Object
+// Transform to a JSON-Object
 var example_data_for_map = JSON.parse(example_data);
-//console.log(obj);
-//var mypointsLayer =  L.geoJson(obj);
-   var slider = L.timelineSliderControl({
-  steps: 1000, //standard 1000 //9131steps=9131Tage
-  duration: 10000,//9131000,// standard 10000 = 9131000 sekunden
+
+        //////////////////////////
+        //  Leaflet.timeline   //
+        ////////////////////////
+
+  var slider = L.timelineSliderControl({
+  steps: 1000, //standard 1000 //9131steps=9131Days(map.geojson(Interval))
+  duration: 10000,//9131000,// standard 10000 = 9131000 seconds
   showTicks: true,
   enableKeyboardControls:true,
   formatOutput: function(date){
@@ -331,7 +306,7 @@ var example_data_for_map = JSON.parse(example_data);
 map.addControl(slider);
 
 var timeline = L.timeline(example_data_for_map,{
-  //getInterval:
+
     });
 timeline.addTo(map);
 slider.addTimelines(timeline);
@@ -339,12 +314,10 @@ slider.addTimelines(timeline);
 
 
 
-}//End function dataForTimeline
+}//End-Function dataForTimeline
 
 
 $.getJSON("./map.geojson", function(data) {
   //addDataToMap(data, map);
   dataForTimeline(data, map);  //delete maybe map
 });
-
-//JQuery
