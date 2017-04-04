@@ -333,7 +333,7 @@ timeline = L.timeline(example_data_for_map,
 timeline.addTo(map)//.bindPopup(example_data_for_map.features.properties);//(features.properties.name);
 slider.addTimelines(timeline);
 ///////////////////////////////////////////////////////
-//  These code pass over the data to the sidebar    // ????git why add
+//  These code pass over the data to the sidebar    // ????git whyasd add
 /////////////////////////////////////////////////////
       var displayed = timeline.getLayers();
       var list = document.getElementById('displayed-list');
