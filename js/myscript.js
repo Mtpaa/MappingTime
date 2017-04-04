@@ -1,3 +1,7 @@
+//global variables
+var timeline;
+var example_data_for_map;
+var popupText;
 ////////////////////////////////////
 //         Leaflet_Map           //
 //////////////////////////////////
@@ -36,7 +40,7 @@ map.addControl(sidebar);
     function Point(name_point, start_point, end_point, type_point, x_point, y_point){
       var that = this;
       that.name_point = name_point;
-      //that.description is missing
+      that.description_point = description_point; //Here()
       that.start_point = start_point;
       that.end_point = end_point;
       that.type_point = type_point;
@@ -46,7 +50,7 @@ map.addControl(sidebar);
       //that.point_feature = function(){
       return '{"type":'+'"Feature","properties":{"name":"'+name_point+'",'+'"start":'+'"'+start_point+'"'+','+'"end":'+'"'+end_point+'"'+"},"+'"geometry"'+':{"type":"'+type_point +'",'+'"coordinates":['+x_point+","+y_point+']}},'
      //}
-   };
+   };            //+"description":'+'"'+description_point+'"'
 
     //new LineString
     function Line(name_line, start_line, end_line, type_line, theLineCoords){
@@ -169,6 +173,7 @@ function dataForTimeline(data, map){
 
       name_point = data.features[i].properties.TITLE;
       type_point = data.features[i].geometry.type;
+      description_point = data.features[i].properties.DESCRIPTION; //Here
 
       //extract Coordinates
       var coord_points = data.features[i].geometry.coordinates;
@@ -286,7 +291,11 @@ var example_data = '{"type"'+':'+'"FeatureCollection","features"'+':'+'['+featur
     example_data = example_data.toString();
 
 // Transform to a JSON-Object
-var example_data_for_map = JSON.parse(example_data);
+//var example_data_for_map = JSON.parse(example_data);
+ example_data_for_map = JSON.parse(example_data);
+console.log(example_data_for_map);
+
+
 
         //////////////////////////
         //  Leaflet.timeline   //
@@ -305,19 +314,28 @@ var example_data_for_map = JSON.parse(example_data);
 });
 map.addControl(slider);
 
-var timeline = L.timeline(example_data_for_map,{
+//var timeline = L.timeline(example_data_for_map,{
+timeline = L.timeline(example_data_for_map,{
+  waitToUpdateMap: true,
+  onEachFeature:function(feature, layer){
+    layer.bindPopup("Title"+"---"+feature.properties.name+
+    "Start--"+feature.properties.start+feature.properties.end);
+  }
 
     });
-timeline.addTo(map);
+timeline.addTo(map)//.bindPopup(example_data_for_map.features.properties);//(features.properties.name);
 slider.addTimelines(timeline);
 
-
-
-
 }//End-Function dataForTimeline
+
+
+
+
+
 
 
 $.getJSON("./map.geojson", function(data) {
   //addDataToMap(data, map);
   dataForTimeline(data, map);  //delete maybe map
+  //updateList(data, map);
 });
