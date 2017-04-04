@@ -316,19 +316,37 @@ console.log(example_data_for_map);
 });
 map.addControl(slider);
 
-//var timeline = L.timeline(example_data_for_map,{
-timeline = L.timeline(example_data_for_map,{
-  waitToUpdateMap: true,
-  onEachFeature:function(feature, layer){
-    layer.bindPopup("Title"+"---"+feature.properties.name+
-    "Start--"+feature.properties.start+feature.properties.end+"--"+feature.properties.description);
-  }
 
-    });
+timeline = L.timeline(example_data_for_map,
+    // Here are the code tho show the data of the features in a POPUP
+  {
+
+  waitToUpdateMap: true,
+    onEachFeature:function(feature, layer){
+      layer.bindPopup("Title: "+feature.properties.name
+      +"<br>Description: "+ feature.properties.description
+      +"<br>from:<br> "+feature.properties.start
+      +"<br> to : <br>"+feature.properties.end);
+    }
+  }
+);
 timeline.addTo(map)//.bindPopup(example_data_for_map.features.properties);//(features.properties.name);
 slider.addTimelines(timeline);
+///////////////////////////////////////////////////////
+//  These code pass over the data to the sidebar    //
+/////////////////////////////////////////////////////
+      var displayed = timeline.getLayers();
+      var list = document.getElementById('displayed-list');
+      list.innerHTML = "";
+      displayed.forEach(function(layer){
+        var li = document.createElement('li');
+        li.innerHTML = "Hello World"+layer.feature.properties.name//  quake.feature.properties.title;
+        list.appendChild(li);
+      });
 
 }//End-Function dataForTimeline
+
+
 
 
 
