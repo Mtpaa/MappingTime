@@ -37,7 +37,7 @@ map.addControl(sidebar);
 //////////////////////////////////////////////////////
 
     //new Point
-    function Point(name_point, start_point, end_point, type_point, x_point, y_point){
+    function Point(name_point, description_point, start_point, end_point, type_point, x_point, y_point){//(here)
       var that = this;
       that.name_point = name_point;
       that.description_point = description_point; //Here()
@@ -48,34 +48,34 @@ map.addControl(sidebar);
       that.y_point = y_point;
 
       //that.point_feature = function(){
-      return '{"type":'+'"Feature","properties":{"name":"'+name_point+'",'+'"start":'+'"'+start_point+'"'+','+'"end":'+'"'+end_point+'"'+"},"+'"geometry"'+':{"type":"'+type_point +'",'+'"coordinates":['+x_point+","+y_point+']}},'
-     //}
-   };            //+"description":'+'"'+description_point+'"'
+      return '{"type":'+'"Feature","properties":{"name":"'+name_point+'",'+'"description":'+'"'+description_point+'"'+','+'"start":'+'"'+start_point+'"'+','+'"end":'+'"'+end_point+'"'+"},"+'"geometry"'+':{"type":"'+type_point +'",'+'"coordinates":['+x_point+","+y_point+']}},'
+     //}                                                                        //Here
+   };          // +'"description":'+'"'+description_point+'"'+
 
     //new LineString
-    function Line(name_line, start_line, end_line, type_line, theLineCoords){
+    function Line(name_line, description_line, start_line, end_line, type_line, theLineCoords){//here
      var that = this;
      that.name_line = name_line;
-     //that.description =  that.description;
+     that.description_line = description_line;
      that.start_line = start_line;
      that.end_line = end_line;
      that.type_line = type_line;
      that.theLineCoords = theLineCoords;
 
-     return '{"type":'+'"Feature","properties":{"name":"'+name_line+'",'+'"start":'+'"'+start_line+'"'+","+'"end":'+'"'+end_line+'"'+"},"+'"geometry"'+':{"type":"'+type_line +'",'+'"coordinates":['+theLineCoords+']}},'
+     return '{"type":'+'"Feature","properties":{"name":"'+name_line+'",'+'"description":'+'"'+description_line+'"'+','  +'"start":'+'"'+start_line+'"'+","+'"end":'+'"'+end_line+'"'+"},"+'"geometry"'+':{"type":"'+type_line +'",'+'"coordinates":['+theLineCoords+']}},'
    };
 
     //new Polygon
-    function Polygon(name_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) {
+    function Polygon(name_polygon,description_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) {//here
       var that = this;
       that.name_polygon = name_polygon;
-      //that.description =  that.description;
+      that.description_polygon =  description_polygon;
       that.start_polygon = start_polygon;
       that.end_polygon = end_polygon;
       that.type_polygon = type_polygon;
       that.coord_poly_string = coord_poly_string;
 
-      return '{"type":'+'"Feature","properties":{"name":"'+name_polygon+'",'+'"start":'+'"'+start_polygon+'"'+","+'"end":'+'"'+end_polygon+'"'+"},"+'"geometry"'+':{"type":"'+type_polygon +'",'+'"coordinates":'+coord_poly_string+'}},'
+      return '{"type":'+'"Feature","properties":{"name":"'+name_polygon+'",' +'"description":'+'"'+description_polygon+'"'+','          +'"start":'+'"'+start_polygon+'"'+","+'"end":'+'"'+end_polygon+'"'+"},"+'"geometry"'+':{"type":"'+type_polygon +'",'+'"coordinates":'+coord_poly_string+'}},'
     }; /// END Class Polygon
 //end Class-Defintions
 
@@ -101,7 +101,7 @@ function dataForTimeline(data, map){
     if(data.features[i].geometry.type ==="Polygon"){
 
       var name_polygon = data.features[i].properties.TITLE;
-
+      var description_polygon = data.features[i].properties.DESCRIPTION; //Here
       var type_polygon = data.features[i].geometry.type;
 
 
@@ -160,7 +160,7 @@ function dataForTimeline(data, map){
   coord_poly_string = "["+pair_string+"]";
 
 
-  var myPolygon = Polygon(name_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string)
+  var myPolygon = Polygon(name_polygon,description_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) //(here)
 
     //push class Point to array
     polygon_Array.push(myPolygon);
@@ -194,7 +194,7 @@ function dataForTimeline(data, map){
 
 
       //extracted data pass over to Class
-      var mypoint =  Point(name_point, start_point, end_point, type_point, x_point, y_point);
+      var mypoint =  Point(name_point,description_point, start_point, end_point, type_point, x_point, y_point);//(here)
         //class feature push to Array(Point)
         point_Array.push(mypoint);
 
@@ -206,6 +206,7 @@ function dataForTimeline(data, map){
 
 
       name_line = data.features[i].properties.TITLE;
+      description_line = data.features[i].properties.DESCRIPTION; //Here
       type_line = data.features[i].geometry.type;
       //console.log(name_line);
       //extract Coordinates of LineString
@@ -249,7 +250,7 @@ function dataForTimeline(data, map){
   end_line = new Date(end_line);
 
   //extracted data hand over to class Line
-  var myline =  Line(name_line, start_line, end_line, type_line, coord_string);
+  var myline =  Line(name_line, description_line, start_line, end_line, type_line, coord_string); //Here
 
   //class feature push to Array(Line)
   line_Array.push(myline);
@@ -292,6 +293,7 @@ var example_data = '{"type"'+':'+'"FeatureCollection","features"'+':'+'['+featur
 
 // Transform to a JSON-Object
 //var example_data_for_map = JSON.parse(example_data);
+//document.write(example_data);
  example_data_for_map = JSON.parse(example_data);
 console.log(example_data_for_map);
 
@@ -319,7 +321,7 @@ timeline = L.timeline(example_data_for_map,{
   waitToUpdateMap: true,
   onEachFeature:function(feature, layer){
     layer.bindPopup("Title"+"---"+feature.properties.name+
-    "Start--"+feature.properties.start+feature.properties.end);
+    "Start--"+feature.properties.start+feature.properties.end+"--"+feature.properties.description);
   }
 
     });
