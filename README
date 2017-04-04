@@ -8,6 +8,7 @@ timeline.
 
 - build a function to get ALL Informations of the geosjon visualized
   into the sidebar
+  (For Picturesvisualization over URL...change im Backend geojson-file new column "IMG_URL")
 - a function to read ot the graphical informations of th geojson-file
   and visualizided the animated layer of the map
 
