@@ -332,9 +332,19 @@ timeline = L.timeline(example_data_for_map,
 );
 timeline.addTo(map)//.bindPopup(example_data_for_map.features.properties);//(features.properties.name);
 slider.addTimelines(timeline);
+
+
+
 ///////////////////////////////////////////////////////
 //  These code pass over the data to the sidebar    // ????git whyasd add
 /////////////////////////////////////////////////////
+
+timeline.on('change', function(e){
+  updateList(e.target);
+});
+updateList(timeline);
+
+function updateList(timeline){
       var displayed = timeline.getLayers();
       var list = document.getElementById('displayed-list');
       list.innerHTML = "";
@@ -343,10 +353,9 @@ slider.addTimelines(timeline);
         li.innerHTML = "Hello World"+layer.feature.properties.name//  quake.feature.properties.title;
         list.appendChild(li);
       });
-
+    }
 }//End-Function dataForTimeline
- //github Problem ikjijol
-//jhkjhkjh Na what denn?
+
 
 
 

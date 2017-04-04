@@ -6,7 +6,7 @@ timeline.
 
 **to do:**
 
-- build a function to get Informations of the geosjon visualized
+- build a function to get ALL Informations of the geosjon visualized
   into the sidebar
 - a function to read ot the graphical informations of th geojson-file
   and visualizided the animated layer of the map
