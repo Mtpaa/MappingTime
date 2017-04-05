@@ -385,7 +385,7 @@ function updateList(timeline){
       list.innerHTML = "";
       displayed.forEach(function(layer){
         var li = document.createElement('li');
-        li.innerHTML = "Hello World"+layer.feature.properties.name//  quake.feature.properties.title;
+        li.innerHTML = layer.feature.properties.name +"   "+"<img src=" +layer.feature.properties.img_url+ "height=84 width=84/>"
         list.appendChild(li);
       });
     }
