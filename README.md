@@ -1,12 +1,16 @@
+<<<<<<< HEAD:README.md
 Working Titel [MappingTime][1]
 
 
+=======
+Working Titel **MappingTime**
+>>>>>>> 706cb2cef1786e58607f767425f9ab9e40745378:README.md
 
 The Page works local with the Crome-Browser, just under localhost.
 With Mozilla Firefox the page the animation is slowly and "ticks" are missing in the
 timeline.
 
-**to do:**
+*to do:*
 
 - build a function to get ALL Informations of the geosjon visualized
   ~~into the sidebar~~
@@ -15,7 +19,11 @@ timeline.
   and visualizided the animated layer of the map
 
 
+<<<<<<< HEAD:README.md
 **Licence**
+=======
+*Licence*
+>>>>>>> 706cb2cef1786e58607f767425f9ab9e40745378:README.md
 
   Unless otherwise noted in the source file, everything is MIT licensed.
 
