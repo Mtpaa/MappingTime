@@ -37,10 +37,13 @@ map.addControl(sidebar);
 //////////////////////////////////////////////////////
 
     //new Point
-    function Point(name_point, description_point, start_point, end_point, type_point, x_point, y_point){//(here)
+    function Point(name_point, description_point, description_url_point,img_url_point, video_url_point, start_point, end_point, type_point, x_point, y_point){//(here)
       var that = this;
       that.name_point = name_point;
       that.description_point = description_point; //Here()
+      that.description_url_point = description_url_point;
+      that.img_url_point = img_url_point;
+      that.video_url_point = video_url_point;
       that.start_point = start_point;
       that.end_point = end_point;
       that.type_point = type_point;
@@ -48,34 +51,50 @@ map.addControl(sidebar);
       that.y_point = y_point;
 
       //that.point_feature = function(){
-      return '{"type":'+'"Feature","properties":{"name":"'+name_point+'",'+'"description":'+'"'+description_point+'"'+','+'"start":'+'"'+start_point+'"'+','+'"end":'+'"'+end_point+'"'+"},"+'"geometry"'+':{"type":"'+type_point +'",'+'"coordinates":['+x_point+","+y_point+']}},'
+      return '{"type":'+'"Feature","properties":{"name":"'+name_point+'",'+'"description":'+'"'+description_point+'"'+','+'"description_url":'+'"'+description_url_point+'"'+','+'"img_url":'+'"'+img_url_point+'"'+',' +'"video_url":'+'"'+video_url_point+'"'+','+'"start":'+'"'+start_point+'"'+','+'"end":'+'"'+end_point+'"'+"},"+'"geometry"'+':{"type":"'+type_point +'",'+'"coordinates":['+x_point+","+y_point+']}},'
      //}                                                                        //Here
    };          // +'"description":'+'"'+description_point+'"'+
+    //'"description":'+'"'+description_point+'"'+','+
+  // +'"description_url":'+'"'+description_url_point+'"'+','+
+//  +'"img_url":'+'"'+img_url_point+'"'+','+
+ //+'"video_url":'+'"'+video_url_point+'"'+','+
 
     //new LineString
-    function Line(name_line, description_line, start_line, end_line, type_line, theLineCoords){//here
+    function Line(name_line, description_line,description_url_line, img_url_line, video_url_line, start_line, end_line, type_line, theLineCoords){//here
      var that = this;
      that.name_line = name_line;
      that.description_line = description_line;
+     that.description_url_line = description_url_line;
+     that.img_url_line = img_url_line;
+     that.video_url_line = video_url_line;
      that.start_line = start_line;
      that.end_line = end_line;
      that.type_line = type_line;
      that.theLineCoords = theLineCoords;
 
-     return '{"type":'+'"Feature","properties":{"name":"'+name_line+'",'+'"description":'+'"'+description_line+'"'+','  +'"start":'+'"'+start_line+'"'+","+'"end":'+'"'+end_line+'"'+"},"+'"geometry"'+':{"type":"'+type_line +'",'+'"coordinates":['+theLineCoords+']}},'
+     return '{"type":'+'"Feature","properties":{"name":"'+name_line+'",'+'"description":'+'"'+description_line+'"'+','+'"description_url":'+'"'+description_url_line+'"'+','+'"img_url":'+'"'+img_url_line+'"'+','+'"video_url":'+'"'+video_url_line+'"'+','+'"start":'+'"'+start_line+'"'+","+'"end":'+'"'+end_line+'"'+"},"+'"geometry"'+':{"type":"'+type_line +'",'+'"coordinates":['+theLineCoords+']}},'
    };
 
+   // +'"description_url":'+'"'+description_url_line+'"'+','+'"img_url":'+'"'+img_url_line+'"'+','+'"video_url":'+'"'+video_url_line+'"'+','+
+ //  +'"img_url":'+'"'+img_url_line+'"'+','+
+  //+'"video_url":'+'"'+video_url_line+'"'+','+
+
     //new Polygon
-    function Polygon(name_polygon,description_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) {//here
+    function Polygon(name_polygon,description_polygon,description_url_polygon, img_url_polygon, video_url_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) {//here
       var that = this;
       that.name_polygon = name_polygon;
       that.description_polygon =  description_polygon;
+      that.description_url_polygon = description_url_polygon;
+      that.img_url_polygon = img_url_polygon;
+      that.video_url_polygon = video_url_polygon;
       that.start_polygon = start_polygon;
       that.end_polygon = end_polygon;
       that.type_polygon = type_polygon;
       that.coord_poly_string = coord_poly_string;
 
-      return '{"type":'+'"Feature","properties":{"name":"'+name_polygon+'",' +'"description":'+'"'+description_polygon+'"'+','          +'"start":'+'"'+start_polygon+'"'+","+'"end":'+'"'+end_polygon+'"'+"},"+'"geometry"'+':{"type":"'+type_polygon +'",'+'"coordinates":'+coord_poly_string+'}},'
+      return '{"type":'+'"Feature","properties":{"name":"'+name_polygon+'",' +'"description":'+'"'+description_polygon+'"'+','+'"description_url":'+'"'+description_url_polygon+'"'+','+'"img_url":'+'"'+img_url_polygon+'"'+','+'"video_url":'+'"'+video_url_polygon+'"'+','+'"start":'+'"'+start_polygon+'"'+","+'"end":'+'"'+end_polygon+'"'+"},"+'"geometry"'+':{"type":"'+type_polygon +'",'+'"coordinates":'+coord_poly_string+'}},'
+       // +'"description_url":'+'"'+description_url_polygon+'"'+','+'"img_url":'+'"'+img_url_polygon+'"'+','+'"video_url":'+'"'+video_url_polygon+'"'+','+
+
     }; /// END Class Polygon
 //end Class-Defintions
 
@@ -102,7 +121,13 @@ function dataForTimeline(data, map){
 
       var name_polygon = data.features[i].properties.TITLE;
       var description_polygon = data.features[i].properties.DESCRIPTION; //Here
-      var type_polygon = data.features[i].geometry.type;
+      var description_url_polygon = data.features[i].properties.DESCIPTION_URL;
+      var img_url_polygon = data.features[i].properties.IMG_URL;
+      var video_url_polygon = data.features[i].properties.VIDEO_URL;
+      //console.log("Hai"+description_url_polygon);
+      //console.log("Hai_2"+img_url_polygon);
+      //console.log("Hai_3"+video_url_polygon);
+      var type_polygon = data.features[i].geometry.type; //??
 
 
     //extract Time(Date)
@@ -160,7 +185,7 @@ function dataForTimeline(data, map){
   coord_poly_string = "["+pair_string+"]";
 
 
-  var myPolygon = Polygon(name_polygon,description_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) //(here)
+  var myPolygon = Polygon(name_polygon,description_polygon,description_url_polygon,img_url_polygon, video_url_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) //(here)
 
     //push class Point to array
     polygon_Array.push(myPolygon);
@@ -174,6 +199,9 @@ function dataForTimeline(data, map){
       name_point = data.features[i].properties.TITLE;
       type_point = data.features[i].geometry.type;
       description_point = data.features[i].properties.DESCRIPTION; //Here
+      description_url_point = data.features[i].properties.DESCIPTION_URL;
+      img_url_point =  data.features[i].properties.IMG_URL;
+      video_url_point =  data.features[i].properties.VIDEO_URL;
 
       //extract Coordinates
       var coord_points = data.features[i].geometry.coordinates;
@@ -194,7 +222,7 @@ function dataForTimeline(data, map){
 
 
       //extracted data pass over to Class
-      var mypoint =  Point(name_point,description_point, start_point, end_point, type_point, x_point, y_point);//(here)
+      var mypoint =  Point(name_point,description_point, description_url_point, img_url_point,video_url_point, start_point, end_point, type_point, x_point, y_point);//(here)
         //class feature push to Array(Point)
         point_Array.push(mypoint);
 
@@ -207,6 +235,9 @@ function dataForTimeline(data, map){
 
       name_line = data.features[i].properties.TITLE;
       description_line = data.features[i].properties.DESCRIPTION; //Here
+      description_url_line = data.features[i].properties.DESCIPTION_URL;
+      img_url_line = data.features[i].properties.IMG_URL;
+      video_url_line = data.features[i].properties.VIDEO_URL;
       type_line = data.features[i].geometry.type;
       //console.log(name_line);
       //extract Coordinates of LineString
@@ -250,7 +281,7 @@ function dataForTimeline(data, map){
   end_line = new Date(end_line);
 
   //extracted data hand over to class Line
-  var myline =  Line(name_line, description_line, start_line, end_line, type_line, coord_string); //Here
+  var myline =  Line(name_line, description_line,description_url_line, img_url_line, video_url_line, start_line, end_line, type_line, coord_string); //Here
 
   //class feature push to Array(Line)
   line_Array.push(myline);
@@ -295,7 +326,7 @@ var example_data = '{"type"'+':'+'"FeatureCollection","features"'+':'+'['+featur
 //var example_data_for_map = JSON.parse(example_data);
 //document.write(example_data);
  example_data_for_map = JSON.parse(example_data);
-console.log(example_data_for_map);
+//console.log(example_data_for_map);
 
 
 
@@ -326,7 +357,11 @@ timeline = L.timeline(example_data_for_map,
       layer.bindPopup("Title: "+feature.properties.name
       +"<br>Description: "+ feature.properties.description
       +"<br>from:<br> "+feature.properties.start
-      +"<br> to : <br>"+feature.properties.end);
+      +"<br> to : <br>"+feature.properties.end
+      +"<br> Link : "+ feature.properties.description_url
+      +"<br> Image: "+"<img src=" + feature.properties.img_url+ "/>"
+      +"<br> Video: "+ feature.properties.video_url
+      );
     }
   }
 );
