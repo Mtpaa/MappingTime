@@ -10,9 +10,11 @@ timeline.
 *to do:*
 
 - build a function to get ALL Informations of the geosjon visualized
+- design sidebar and popupBox
+- make the variables duration and steps interaktive for the user
   ~~into the sidebar~~
   ~~(For Picturesvisualization over URL...change im Backend geojson-file new column "IMG_URL")~~
-- a function to read ot the graphical informations of th geojson-file
+- a function to read ot the graphical informations of the features
   and visualizided the animated layer of the map
 
 
@@ -21,6 +23,6 @@ timeline.
 
   Unless otherwise noted in the source file, everything is MIT licensed.
 
-**I do not belong to any linked picture of these website.**
+**I do not belong to any linked picture or website**
 
 [1]: http://Mtpaa.github.io/MappingTime/index.html
