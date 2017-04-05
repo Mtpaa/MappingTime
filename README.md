@@ -1,6 +1,6 @@
-Working Titel **MappingTime**
+Working Titel ### [MappingTime][1]
 
-### [Demo][1]
+
 
 The Page works local with the Crome-Browser, just under localhost.
 With Mozilla Firefox the page the animation is slowly and "ticks" are missing in the
