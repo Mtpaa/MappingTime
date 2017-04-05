@@ -359,7 +359,7 @@ timeline = L.timeline(example_data_for_map,
       +"<br>from:<br> "+feature.properties.start
       +"<br> to : <br>"+feature.properties.end
       +"<br> Link : "+ feature.properties.description_url
-      +"<br> Image: "+"<img src=" + feature.properties.img_url+ "/>"
+      +"<br> Image: "+"<img src=" + feature.properties.img_url+ "height=84 width=84/>"
       +"<br> Video: "+ feature.properties.video_url
       );
     }
