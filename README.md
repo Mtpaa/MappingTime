@@ -11,7 +11,8 @@ timeline.
 
 - build a function to get ALL Informations of the geosjon visualized
 - design sidebar and popupBox
-- make the variables duration and steps interaktive for the user
+- make the variables  `duration` and  `steps` interactive for the user and make it
+  possible for the user to play with the option  `getInterval`
 - ~~into the sidebar(For Picturesvisualization over URL...change im Backend geojson-file new column "IMG_URL")~~
 - a function to read ot the graphical informations of the features
   and visualizided the animated layer of the map
