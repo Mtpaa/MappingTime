@@ -330,13 +330,14 @@ var example_data = '{"type"'+':'+'"FeatureCollection","features"'+':'+'['+featur
 
 
 
+
         //////////////////////////
         //  Leaflet.timeline   //
         ////////////////////////
-
+//console.log(int_steps);
   var slider = L.timelineSliderControl({
-  steps: 1000, //standard 1000 //9131steps=9131Days(map.geojson(Interval))
-  duration: 10000,//9131000,// standard 10000 = 9131000 seconds
+  steps: 1000,//steps, //standard 1000 //9131steps=9131Days(map.geojson(Interval))
+  duration: 10000,//duration,//9131000,// standard 10000 = 9131000 seconds
   showTicks: true,
   enableKeyboardControls:true,
   formatOutput: function(date){
@@ -347,8 +348,25 @@ var example_data = '{"type"'+':'+'"FeatureCollection","features"'+':'+'['+featur
 });
 map.addControl(slider);
 
+//Here
+/*
+var getInterval = "";
+function eq(example_data_for_map){
+getInterval = function(feature, layer) {
+  return {
+    start:layer.feature.properties.start,
+    end: layer.feature.properties.end
+  };
+};
+}
+eq();
+alert(getInterval);
+*/
+//HERE
+
 
 timeline = L.timeline(example_data_for_map,
+  //getInterval: getInterval
     // Here are the code tho show the data of the features in a POPUP
   {
 
@@ -367,7 +385,6 @@ timeline = L.timeline(example_data_for_map,
 );
 timeline.addTo(map)//.bindPopup(example_data_for_map.features.properties);//(features.properties.name);
 slider.addTimelines(timeline);
-
 
 
 ///////////////////////////////////////////////////////
