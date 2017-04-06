@@ -8,9 +8,10 @@ With Mozilla Firefox the page the animation is slowly and "ticks" are missing in
 timeline.
 
 **to do:**
-
+- build a function that connects the informations of the sidebar, by clicking them, with the features
+  in the map.  After clicking them a zoom and pananimation is activated.
 - build a function to get ALL Informations of the geosjon visualized
-- design sidebar and popupBox
+- design sidebar and popupBox and toolTip
 - make the variables  `duration` and  `steps` interactive for the user and make it
   possible for the user to play with the option  `getInterval`
 - ~~into the sidebar(For Picturesvisualization over URL...change im Backend geojson-file new column "IMG_URL")~~

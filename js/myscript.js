@@ -381,6 +381,15 @@ timeline = L.timeline(example_data_for_map,
       +"<br> Video: "+"<video> <source src= "+  feature.properties.video_url
       +"type = video/mp4 height=84 width =84/></video>"
       );
+      layer.bindTooltip("Title: "+feature.properties.name
+        +"<br>Description: "+ feature.properties.description
+        +"<br>from:<br> "+feature.properties.start
+        +"<br> to : <br>"+feature.properties.end
+        +"<br> Link : "+ feature.properties.description_url
+        +"<br> Image: "+"<img src=" + feature.properties.img_url+ "height=84 width=84/>"
+        +"<br> Video: "+"<video> <source src= "+  feature.properties.video_url
+        +"type = video/mp4 height=84 width =84/></video>");
+
     }
   }
 );
