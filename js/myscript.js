@@ -15,7 +15,7 @@ var ownlayer = L.tileLayer('http://{s}.tiles.mapbox.com/v3/github.map-xgq2svrz/{
 var map = new L.map ('map', {
  center:[60.39453125, 40.267804],
   zoom: 2,
-  attribution: true,
+  attribution: "OSM",
  layers:[ownlayer],
 });
 
@@ -412,7 +412,8 @@ function updateList(timeline){
       list.innerHTML = "";
       displayed.forEach(function(layer){
         var li = document.createElement('li');
-        li.innerHTML = layer.feature.properties.name +"   "+"<img src=" +layer.feature.properties.img_url+ "height=84 width=84/>"
+        li.innerHTML = layer.feature.properties.name +"   "
+        +"<img src=" +layer.feature.properties.img_url+ "height=84 width=84/>"
         list.appendChild(li);
       });
     }
