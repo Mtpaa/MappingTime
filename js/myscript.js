@@ -5,7 +5,7 @@ var popupText;
 ////////////////////////////////////
 //         Leaflet_Map           //
 //////////////////////////////////
-var attrib = 'Tiles von <a href="https://www.mapbox.com/">Mapbox</a> - Geodaten <a href="https://www.openstreetmap.de/"> Map data © OpenStreetMap contributors, </a> <a href ="http://leafletjs.com/"/>Leaflet</a> ',
+var attrib = 'Tiles von <a href="https://www.mapbox.com/">Mapbox</a> - Map data <a href="https://www.openstreetmap.de/"> © OpenStreetMap contributors </a>';
 // Create Layer of a slippy map with some options
 var ownlayer = L.tileLayer('http://{s}.tiles.mapbox.com/v3/github.map-xgq2svrz/{z}/{x}/{y}.png',{
   continuousWorld: 'false',
