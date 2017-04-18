@@ -9,6 +9,7 @@ var popupText;
 // Create Layer of a slippy map with some options
 var ownlayer = L.tileLayer('http://{s}.tiles.mapbox.com/v3/github.map-xgq2svrz/{z}/{x}/{y}.png',{
   continuousWorld: 'false',
+  attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA',
 });
 
 //Create a Map conect to <div-element>Css and  with some options
