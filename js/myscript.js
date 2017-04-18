@@ -16,7 +16,7 @@ var ownlayer = L.tileLayer('http://{s}.tiles.mapbox.com/v3/github.map-xgq2svrz/{
 var map = new L.map ('map', {
  center:[60.39453125, 40.267804],
   zoom: 2,
-  attribution: "OSM",
+  attribution: 'Daten von <a href="http://www.openstreetmap.org/">OpenStreetMap</a> - Veröffentlicht unter <a href="http://opendatacommons.org/licenses/odbl/">ODbL, Map data © OpenStreetMap contributors, CC-BY-SA </a>',
  layers:[ownlayer],
 });
 
