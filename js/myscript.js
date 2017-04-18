@@ -5,19 +5,18 @@ var popupText;
 ////////////////////////////////////
 //         Leaflet_Map           //
 //////////////////////////////////
-var atrib = '&copy; <a href="http://openstreetmap.org/copyright">' +
-        'OpenStreetMap</a> contributors';
+var attrib = 'Tiles von <a href="https://www.mapbox.com/">Mapbox</a> - Geodaten <a href="https://www.openstreetmap.de/"> Map data © OpenStreetMap contributors, </a> <a href ="http://leafletjs.com/"/>Leaflet</a> ',
 // Create Layer of a slippy map with some options
 var ownlayer = L.tileLayer('http://{s}.tiles.mapbox.com/v3/github.map-xgq2svrz/{z}/{x}/{y}.png',{
   continuousWorld: 'false',
-  attribution: atrib,
+  attribution: attrib,
 });
 
 //Create a Map conect to <div-element>Css and  with some options
 var map = new L.map ('map', {
  center:[60.39453125, 40.267804],
   zoom: 2,
-  attribution: atrib,
+  attribution: attrib,
  layers:[ownlayer],
 });
 
