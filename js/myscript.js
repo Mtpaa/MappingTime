@@ -38,7 +38,7 @@ map.addControl(sidebar);
 //////////////////////////////////////////////////////
 
     //new Point
-    function Point(name_point, description_point, description_url_point,img_url_point, video_url_point, start_point, end_point, type_point, x_point, y_point){//(here)
+    function Point(name_point, description_point, description_url_point,img_url_point, video_url_point, start_point, end_point, type_point, x_point, y_point, markers, markerc, markersymbol){//(here)
       var that = this;
       that.name_point = name_point;
       that.description_point = description_point; //Here()
@@ -50,9 +50,17 @@ map.addControl(sidebar);
       that.type_point = type_point;
       that.x_point = x_point;
       that.y_point = y_point;
+      that.markers = markers;
+      that.markerc = markerc;
+      that.markersymbol = markersymbol;
 
       //that.point_feature = function(){
-      return '{"type":'+'"Feature","properties":{"name":"'+name_point+'",'+'"description":'+'"'+description_point+'"'+','+'"description_url":'+'"'+description_url_point+'"'+','+'"img_url":'+'"'+img_url_point+'"'+',' +'"video_url":'+'"'+video_url_point+'"'+','+'"start":'+'"'+start_point+'"'+','+'"end":'+'"'+end_point+'"'+"},"+'"geometry"'+':{"type":"'+type_point +'",'+'"coordinates":['+x_point+","+y_point+']}},'
+        //return '{"type":'+'"Feature","properties":{"name":"'+name_point+'",'+'"description":'+'"'+description_point+'"'+','+'"description_url":'+'"'+description_url_point+'"'+','+'"img_url":'+'"'+img_url_point+'"'+',' +'"video_url":'+'"'+video_url_point+'"'+','+'"start":'+'"'+start_point+'"'+','+'"end":'+'"'+end_point+'"'+"},"+'"geometry"'+':{"type":"'+type_point +'",'+'"coordinates":['+x_point+","+y_point+']}},'
+      return '{"type":'+'"Feature","properties":{"name":"'+name_point+'",'+'"description":'+'"'+description_point+'"'+','+'"description_url":'+'"'+description_url_point+'"'+','+'"img_url":'+'"'+img_url_point+'"'+',' +'"video_url":'+'"'+video_url_point+'"'+','
+      +'"markers":'+'"'+markers+'"'+','
+      +'"markerc":'+'"'+markerc+'"'+','
+      +'"markersymbol":'+'"'+markersymbol+'"'+','
+      +'"start":'+'"'+start_point+'"'+','+'"end":'+'"'+end_point+'"'+"},"+'"geometry"'+':{"type":"'+type_point +'",'+'"coordinates":['+x_point+","+y_point+']}},'
      //}                                                                        //Here
    };          // +'"description":'+'"'+description_point+'"'+
     //'"description":'+'"'+description_point+'"'+','+
@@ -61,7 +69,7 @@ map.addControl(sidebar);
  //+'"video_url":'+'"'+video_url_point+'"'+','+
 
     //new LineString
-    function Line(name_line, description_line,description_url_line, img_url_line, video_url_line, start_line, end_line, type_line, theLineCoords){//here
+    function Line(name_line, description_line,description_url_line, img_url_line, video_url_line, start_line, end_line, type_line, theLineCoords, stroke, strokeo, strokew){//here
      var that = this;
      that.name_line = name_line;
      that.description_line = description_line;
@@ -72,8 +80,15 @@ map.addControl(sidebar);
      that.end_line = end_line;
      that.type_line = type_line;
      that.theLineCoords = theLineCoords;
-
-     return '{"type":'+'"Feature","properties":{"name":"'+name_line+'",'+'"description":'+'"'+description_line+'"'+','+'"description_url":'+'"'+description_url_line+'"'+','+'"img_url":'+'"'+img_url_line+'"'+','+'"video_url":'+'"'+video_url_line+'"'+','+'"start":'+'"'+start_line+'"'+","+'"end":'+'"'+end_line+'"'+"},"+'"geometry"'+':{"type":"'+type_line +'",'+'"coordinates":['+theLineCoords+']}},'
+     that.stroke = stroke;
+     that.strokeo = strokeo;
+     that.strokew = strokew;
+    //  return '{"type":'+'"Feature","properties":{"name":"'+name_line+'",'+'"description":'+'"'+description_line+'"'+','+'"description_url":'+'"'+description_url_line+'"'+','+'"img_url":'+'"'+img_url_line+'"'+','+'"video_url":'+'"'+video_url_line+'"'+','+'"start":'+'"'+start_line+'"'+","+'"end":'+'"'+end_line+'"'+"},"+'"geometry"'+':{"type":"'+type_line +'",'+'"coordinates":['+theLineCoords+']}},'
+     return '{"type":'+'"Feature","properties":{"name":"'+name_line+'",'+'"description":'+'"'+description_line+'"'+','+'"description_url":'+'"'+description_url_line+'"'+','+'"img_url":'+'"'+img_url_line+'"'+','+'"video_url":'+'"'+video_url_line+'"'+','
+     +'"stroke":'+'"'+stroke+'"'+','
+     +'"strokeo":'+'"'+strokeo+'"'+','
+     +'"strokew":'+'"'+strokew+'"'+','
+     +'"start":'+'"'+start_line+'"'+","+'"end":'+'"'+end_line+'"'+"},"+'"geometry"'+':{"type":"'+type_line +'",'+'"coordinates":['+theLineCoords+']}},'
    };
 
    // +'"description_url":'+'"'+description_url_line+'"'+','+'"img_url":'+'"'+img_url_line+'"'+','+'"video_url":'+'"'+video_url_line+'"'+','+
@@ -81,7 +96,7 @@ map.addControl(sidebar);
   //+'"video_url":'+'"'+video_url_line+'"'+','+
 
     //new Polygon
-    function Polygon(name_polygon,description_polygon,description_url_polygon, img_url_polygon, video_url_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) {//here
+    function Polygon(name_polygon,description_polygon,description_url_polygon, img_url_polygon, video_url_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string, stroke_poly, strokew_poly, strokeo_poly, fill, fillopa) {//here
       var that = this;
       that.name_polygon = name_polygon;
       that.description_polygon =  description_polygon;
@@ -92,13 +107,27 @@ map.addControl(sidebar);
       that.end_polygon = end_polygon;
       that.type_polygon = type_polygon;
       that.coord_poly_string = coord_poly_string;
+      that.stroke_poly = stroke_poly;
+      that.strokew_poly = strokew_poly;
+      that.strokeo_poly = strokeo_poly;
+      that.fillopa = fillopa;
+      that.fill = fill;                                                                                                      //,'+'"start":'+'"'+start_polygon+'"'+"
 
-      return '{"type":'+'"Feature","properties":{"name":"'+name_polygon+'",' +'"description":'+'"'+description_polygon+'"'+','+'"description_url":'+'"'+description_url_polygon+'"'+','+'"img_url":'+'"'+img_url_polygon+'"'+','+'"video_url":'+'"'+video_url_polygon+'"'+','+'"start":'+'"'+start_polygon+'"'+","+'"end":'+'"'+end_polygon+'"'+"},"+'"geometry"'+':{"type":"'+type_polygon +'",'+'"coordinates":'+coord_poly_string+'}},'
+      return '{"type":'+'"Feature","properties":{"name":"'+name_polygon+'",' +'"description":'+'"'+description_polygon+'"'+','
+      +'"description_url":'+'"'+description_url_polygon+'"'+','+'"img_url":'+'"'+img_url_polygon+'"'+','+'"video_url":'+'"'+video_url_polygon+'"'+','
+      //,'+'"start":'+'"'+start_polygon+'"'+"
+      +'"stroke_poly":'+'"'+stroke_poly+'"'+','
+      +'"strokew_poly":'+'"'+strokew_poly+'"'+','
+      +'"strokeo_poly":'+'"'+strokeo_poly+'"'+','
+      +'"fill":'+'"'+fill+'"'+','
+      +'"fillopa":'+'"'+fillopa+'"'+','
+      +'"start":'+'"'+start_polygon+'"'+","+'"end":'+'"'+end_polygon+'"'+"},"
+      +'"geometry"'+':{"type":"'+type_polygon +'",'+'"coordinates":'+coord_poly_string+'}},'
        // +'"description_url":'+'"'+description_url_polygon+'"'+','+'"img_url":'+'"'+img_url_polygon+'"'+','+'"video_url":'+'"'+video_url_polygon+'"'+','+
-
+//return '{"type":'+'"Feature","properties":{"name":"'+name_polygon+'",' +'"description":'+'"'+description_polygon+'"'+','+'"description_url":'+'"'+description_url_polygon+'"'+','+'"img_url":'+'"'+img_url_polygon+'"'+','+'"video_url":'+'"'+video_url_polygon+'"'+','+'"start":'+'"'+start_polygon+'"'+","+'"end":'+'"'+end_polygon+'"'+"},"+'"geometry"'+':{"type":"'+type_polygon +'",'+'"coordinates":'+coord_poly_string+'}},'
     }; /// END Class Polygon
 //end Class-Defintions
-
+  //console.log("Polygon: "+stroke+"--"+strokew+"---"+strokeo+"---"+fillopa+"--"+fill);
 
 
 
@@ -125,6 +154,14 @@ function dataForTimeline(data, map){
       var description_url_polygon = data.features[i].properties.DESCIPTION_URL;
       var img_url_polygon = data.features[i].properties.IMG_URL;
       var video_url_polygon = data.features[i].properties.VIDEO_URL;
+      var stroke_poly = data.features[i].properties.stroke;
+      var strokeo_poly = data.features[i].properties.strokeo;
+      var strokew_poly = data.features[i].properties.strokew;
+      var fill = data.features[i].properties.fill;
+      var fillopa = data.features[i].properties.fillopa;
+
+      //console.log("Polygon: "+stroke+"--"+strokew+"---"+strokeo+"---"+fillopa+"--"+fill);
+
       //console.log("Hai"+description_url_polygon);
       //console.log("Hai_2"+img_url_polygon);
       //console.log("Hai_3"+video_url_polygon);
@@ -186,7 +223,7 @@ function dataForTimeline(data, map){
   coord_poly_string = "["+pair_string+"]";
 
 
-  var myPolygon = Polygon(name_polygon,description_polygon,description_url_polygon,img_url_polygon, video_url_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string) //(here)
+  var myPolygon = Polygon(name_polygon,description_polygon,description_url_polygon,img_url_polygon, video_url_polygon, start_polygon, end_polygon, type_polygon, coord_poly_string, stroke_poly, strokew_poly, strokeo_poly, fill, fillopa) //(here)
 
     //push class Point to array
     polygon_Array.push(myPolygon);
@@ -203,6 +240,11 @@ function dataForTimeline(data, map){
       description_url_point = data.features[i].properties.DESCIPTION_URL;
       img_url_point =  data.features[i].properties.IMG_URL;
       video_url_point =  data.features[i].properties.VIDEO_URL;
+      var markerc =  data.features[i].properties.markerc;
+      var markers =  data.features[i].properties.markers;
+      var markersymbol =  data.features[i].properties.markersymbol;
+
+    //  console.log("Point: "+markerc+"__"+markers+"__"+markersymbol);
 
       //extract Coordinates
       var coord_points = data.features[i].geometry.coordinates;
@@ -223,7 +265,7 @@ function dataForTimeline(data, map){
 
 
       //extracted data pass over to Class
-      var mypoint =  Point(name_point,description_point, description_url_point, img_url_point,video_url_point, start_point, end_point, type_point, x_point, y_point);//(here)
+      var mypoint =  Point(name_point,description_point, description_url_point, img_url_point,video_url_point, start_point, end_point, type_point, x_point, y_point, markers, markerc, markersymbol);//(here)
         //class feature push to Array(Point)
         point_Array.push(mypoint);
 
@@ -240,6 +282,10 @@ function dataForTimeline(data, map){
       img_url_line = data.features[i].properties.IMG_URL;
       video_url_line = data.features[i].properties.VIDEO_URL;
       type_line = data.features[i].geometry.type;
+      var stroke = data.features[i].geometry.stroke;
+      var strokeo = data.features[i].geometry.strokeo;
+      var strokew = data.features[i].geometry.strokew;
+    //  console.log("Line: "+stroke+"--"+strokeo+"--"+strokew);
       //console.log(name_line);
       //extract Coordinates of LineString
       var coord_line = data.features[i].geometry.coordinates;
@@ -282,7 +328,7 @@ function dataForTimeline(data, map){
   end_line = new Date(end_line);
 
   //extracted data hand over to class Line
-  var myline =  Line(name_line, description_line,description_url_line, img_url_line, video_url_line, start_line, end_line, type_line, coord_string); //Here
+  var myline =  Line(name_line, description_line,description_url_line, img_url_line, video_url_line, start_line, end_line, type_line, coord_string, stroke, strokeo, strokew); //Here
 
   //class feature push to Array(Line)
   line_Array.push(myline);
@@ -328,7 +374,7 @@ var example_data = '{"type"'+':'+'"FeatureCollection","features"'+':'+'['+featur
 //document.write(example_data);
  example_data_for_map = JSON.parse(example_data);
 //console.log(example_data_for_map);
-
+//document.write(example_data_for_map);
 
 
 
